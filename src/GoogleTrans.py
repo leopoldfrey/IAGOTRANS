@@ -3,6 +3,7 @@ from threading import Thread
 from googletrans import Translator
 from pyosc import Server
 from pyosc import Client
+from logging import shutdown
 
 class DownThread(Thread):
     def __init__(self, textinput, dest='fr', osc_client=None):
@@ -27,7 +28,11 @@ class GoogleTrans:
         print("GoogleTrans Ready")
             
     def callback(self, address, *args):
-        if(address == '/dest'):
+        if(address == '/exit'):
+            print("--- EXIT ---")
+            self.osc_server.stop()
+            sys.exit()
+        elif(address == '/dest'):
             self.dest = str(args[0])
             print ("-dest " + self.dest)
         elif(address == '/translate'):

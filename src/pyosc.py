@@ -30,9 +30,13 @@ class Server:
         print('OSC: Creating server at %s:%d' % (host, port))
         dispat = dispatcher.Dispatcher()
         dispat.set_default_handler(callback)
-        server = osc_server.ThreadingOSCUDPServer((host, port), dispat)
-        server_thread = Thread(target=server.serve_forever)
+        self.server = osc_server.ThreadingOSCUDPServer((host, port), dispat)
+        self.server.block_on_close = False
+        server_thread = Thread(target=self.server.serve_forever)
         server_thread.start()
+        
+    def stop(self):
+        self.server.server_close()
         
 '''
 client = None
