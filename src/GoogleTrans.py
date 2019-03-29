@@ -3,7 +3,6 @@ from threading import Thread
 from googletrans import Translator
 from pyosc import Server
 from pyosc import Client
-from logging import shutdown
 
 class DownThread(Thread):
     def __init__(self, textinput, dest='fr', osc_client=None):
