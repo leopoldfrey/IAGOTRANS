@@ -13,7 +13,9 @@ class DownThread(Thread):
         print(" <-- " + self.textinput)
         
     def run(self):
-        translation = str(Translator().translate(self.textinput, dest=self.dest)).split("text=",1)[1].split(", pronunciation=")[0]
+        resp = str(Translator().translate(self.textinput, dest=self.dest))
+        print("resp >>>>> " + resp)
+        translation = resp.split("text=",1)[1].split(", pronunciation=")[0]
         print(" --> " + translation)
         self.osc_client.send('/result',translation)
 
@@ -41,6 +43,7 @@ class GoogleTrans:
                 s += str(args[x])
                 if(x < (l-1)):
                     s += " "
+            #print ("To translate : "+s)
             self.translate(s)
         else:
             print("callback : "+str(address))
