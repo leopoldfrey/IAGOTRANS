@@ -22,7 +22,7 @@ class DownThread(Thread):
 class GoogleTrans:
     
     def __init__(self, osc_server_port=7860, osc_client_host='127.0.0.1', osc_client_port=7861):
-        self.dest = 'fr'
+        self.dest = 'en'
         self.osc_server = Server('127.0.0.1', osc_server_port, self.callback)
         self.osc_client = Client(osc_client_host, osc_client_port)
         
